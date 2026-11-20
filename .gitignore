@@ -361,3 +361,14 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# ---- Project-specific ----
+# Real DB credentials live here (see ConnectionStrings.example.config)
+ConnectionStrings.config
+.env
+*.env
+# Customer-uploaded payment proofs
+uploads/payments/*
+!uploads/payments/.gitkeep
+# macOS / zip artifacts
+__MACOSX/
+.DS_Store

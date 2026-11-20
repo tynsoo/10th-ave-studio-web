@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
+
     <style type="text/css">
         /* Reset and Base Styles */
         * {
@@ -435,6 +436,17 @@
             display: flex;
             align-items: center;
         }
+        .profile-container {
+            flex: 0 0 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 20px;
+            height: auto;
+        }
     </style>
     <script type="text/javascript">
         function toggleMenu() {
@@ -452,6 +464,21 @@
                 });
             }
         }
+        // Add this to your existing script section
+        window.addEventListener('resize', function () {
+            // Check if window width is larger than your mobile breakpoint (992px)
+            if (window.innerWidth > 992) {
+                // Close the mobile menu if it's open
+                const mobileNav = document.querySelector('.mobile-nav');
+                const burgerIcon = document.querySelector('.burger-icon');
+
+                if (mobileNav.classList.contains('open')) {
+                    mobileNav.classList.remove('open');
+                    burgerIcon.classList.remove('open');
+                    document.body.classList.remove('no-scroll');
+                }
+            }
+        });
     </script>
 </head>
 <body>
@@ -469,13 +496,15 @@
             
             <!-- Logo -->
             <div class="header-item logo-container">
-                <img alt="10th Avenue Studio Logo" src="img/logo.png" />
+                <asp:HyperLink ID="LogoHyperLink" runat="server" NavigateUrl="~/homepage.aspx">
+                    <img alt="10th Avenue Studio Logo" src="img/logo.png" />
+                </asp:HyperLink>
             </div>
             
             <!-- Desktop Navigation -->
             <div class="header-item nav-item">
                 <h1>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/WebForm2.aspx">Classes</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Classes.aspx">Classes</asp:HyperLink>
                 </h1>
             </div>
             <div class="header-item nav-item">
@@ -506,9 +535,10 @@
                 </h1>
             </div>
             
-            <!-- Search Icon -->
-            <div class="header-item search-container">
-                <img alt="Search" class="search-icon" src="img/Searchh.png" />
+            <!-- Profile Icon -->
+            <div class="header-item nav-item">
+                <asp:ImageButton ID="ProfileImageButton" runat="server" ImageUrl="icons/icon.png" 
+                                CssClass="profile-icon" AlternateText="Profile" OnClick="ProfileImageButton_Click" />
             </div>
         </header>
         
@@ -517,7 +547,7 @@
             <!-- Scrollable content container -->
             <div class="mobile-nav-content">
                 <div class="mobile-nav-item">
-                    <asp:HyperLink ID="MobileHyperLink1" runat="server" NavigateUrl="~/WebForm2.aspx">Classes <span class="arrow-icon">→</span></asp:HyperLink>
+                    <asp:HyperLink ID="MobileHyperLink1" runat="server" NavigateUrl="~/Classes.aspx">Classes <span class="arrow-icon">→</span></asp:HyperLink>
                 </div>
                 <div class="mobile-nav-item">
                     <asp:HyperLink ID="MobileHyperLink2" runat="server" NavigateUrl="~/Schedules.aspx">Schedule <span class="arrow-icon">→</span></asp:HyperLink>
@@ -539,9 +569,9 @@
             <!-- Fixed footer with login and social icons -->
             <div class="mobile-nav-footer">
                 <div class="login-container">
-                    <asp:HyperLink ID="LoginHyperLink" runat="server" NavigateUrl="~/Login.aspx">
+                    <asp:HyperLink ID="LoginHyperLink" runat="server">
                         <img src="icons/icon.png" alt="User" class="login-icon">
-                        <span>LOG IN</span>
+                        <span id="loginText" runat="server"></span>
                     </asp:HyperLink>
                 </div>
         

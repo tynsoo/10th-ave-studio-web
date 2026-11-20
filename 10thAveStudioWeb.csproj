@@ -1,4 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -43,7 +44,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -60,6 +72,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -73,12 +86,18 @@
     <Content Include="icons\tiktok.png" />
     <Content Include="img\altlogo.png" />
     <Content Include="img\apple-touch-icon.png" />
+    <Content Include="img\Classes.jpg" />
+    <Content Include="img\Coaches.jpg" />
     <Content Include="img\favicon-16x16.png" />
     <Content Include="img\favicon-32x32.png" />
     <Content Include="img\favicon.ico" />
     <Content Include="img\logo.png" />
+    <Content Include="img\main.jpg" />
     <Content Include="img\Searchh.png" />
+    <Content Include="img\Studio.jpg" />
     <Content Include="img\tag.png" />
+    <Content Include="img\Untitled design %281%29.png" />
+    <Content Include="img\Untitled design %282%29.png" />
     <Content Include="Web.config" />
     <Content Include="HomePage.aspx" />
     <Content Include="Classes.aspx" />
@@ -88,10 +107,27 @@
     <Content Include="Contact.aspx" />
     <Content Include="Rentals.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="forgotpassword.aspx" />
+    <Content Include="signup.aspx" />
+    <Content Include="admin.aspx" />
+    <Content Include="AdminClasses.aspx" />
+    <Content Include="AdminSchedules.aspx" />
+    <Content Include="newclass.aspx" />
+    <Content Include="addclass.aspx" />
+    <Content Include="AdminInstructors.aspx" />
+    <Content Include="bookingconfirmation.aspx" />
+    <Content Include="booking.aspx" />
+    <Content Include="forgotpassword1.aspx" />
+    <Content Include="addinstructor.aspx" />
+    <Content Include="Profile.aspx" />
+    <Content Include="AdminContact.aspx" />
+    <Content Include="AdminRentals.aspx" />
+    <Content Include="QRCodeScanner.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="10thAveStudio.Master.cs">
       <DependentUpon>10thAveStudio.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="10thAveStudio.Master.designer.cs">
       <DependentUpon>10thAveStudio.Master</DependentUpon>
@@ -153,10 +189,131 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="forgotpassword.aspx.cs">
+      <DependentUpon>forgotpassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="forgotpassword.aspx.designer.cs">
+      <DependentUpon>forgotpassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="signup.aspx.cs">
+      <DependentUpon>signup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="signup.aspx.designer.cs">
+      <DependentUpon>signup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="10thAveAdmin.Master.cs">
+      <DependentUpon>10thAveAdmin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="10thAveAdmin.Master.designer.cs">
+      <DependentUpon>10thAveAdmin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminClasses.aspx.cs">
+      <DependentUpon>AdminClasses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminClasses.aspx.designer.cs">
+      <DependentUpon>AdminClasses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminSchedules.aspx.cs">
+      <DependentUpon>AdminSchedules.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminSchedules.aspx.designer.cs">
+      <DependentUpon>AdminSchedules.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="newclass.aspx.cs">
+      <DependentUpon>newclass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="newclass.aspx.designer.cs">
+      <DependentUpon>newclass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addclass.aspx.cs">
+      <DependentUpon>addclass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addclass.aspx.designer.cs">
+      <DependentUpon>addclass.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminInstructors.aspx.cs">
+      <DependentUpon>AdminInstructors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminInstructors.aspx.designer.cs">
+      <DependentUpon>AdminInstructors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="bookingconfirmation.aspx.cs">
+      <DependentUpon>bookingconfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="bookingconfirmation.aspx.designer.cs">
+      <DependentUpon>bookingconfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="booking.aspx.cs">
+      <DependentUpon>booking.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="booking.aspx.designer.cs">
+      <DependentUpon>booking.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="forgotpassword1.aspx.cs">
+      <DependentUpon>forgotpassword1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="forgotpassword1.aspx.designer.cs">
+      <DependentUpon>forgotpassword1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="addinstructor.aspx.cs">
+      <DependentUpon>addinstructor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addinstructor.aspx.designer.cs">
+      <DependentUpon>addinstructor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminContact.aspx.cs">
+      <DependentUpon>AdminContact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminContact.aspx.designer.cs">
+      <DependentUpon>AdminContact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminRentals.aspx.cs">
+      <DependentUpon>AdminRentals.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminRentals.aspx.designer.cs">
+      <DependentUpon>AdminRentals.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="QRCodeScanner.aspx.cs">
+      <DependentUpon>QRCodeScanner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QRCodeScanner.aspx.designer.cs">
+      <DependentUpon>QRCodeScanner.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="10thAveStudio.Master" />
     <None Include="packages.config" />
+    <Content Include="10thAveAdmin.Master" />
+    <None Include="Properties\PublishProfiles\10thAveStudio - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -194,7 +351,10 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
