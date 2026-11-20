@@ -1,0 +1,60 @@
+# Builds the ASP.NET WebForms site and deploys it to the Azure Web App "10thAveStudio"
+# on every push to main (and on demand from the Actions tab).
+#
+# Required repository secrets (Settings > Secrets and variables > Actions):
+#   AZURE_WEBAPP_PUBLISH_PROFILE  - contents of the publish profile downloaded from the
+#                                   Azure portal (Web App > Overview > Download publish profile)
+#   SQL_CONNECTION_STRING         - the full StudioConnectionString value (Server=tcp:...;Password=...)
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: 10thAveStudio
+  PUBLISH_DIR: ${{ github.workspace }}\publish
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore 10thAveStudioWeb.sln
+
+      - name: Build and publish (Release)
+        run: >
+          msbuild 10thAveStudioWeb.csproj
+          /p:Configuration=Release
+          /p:DeployOnBuild=true
+          /p:WebPublishMethod=FileSystem
+          /p:PublishUrl="${{ env.PUBLISH_DIR }}"
+          /p:DeleteExistingFiles=true
+
+      - name: Write ConnectionStrings.config from secret
+        shell: pwsh
+        env:
+          SQL_CONNECTION_STRING: ${{ secrets.SQL_CONNECTION_STRING }}
+        run: |
+          if (-not $env:SQL_CONNECTION_STRING) { throw "SQL_CONNECTION_STRING secret is not set" }
+          $cs = [System.Security.SecurityElement]::Escape($env:SQL_CONNECTION_STRING)
+          @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <connectionStrings>
+            <add name="StudioConnectionString" connectionString="$cs" providerName="System.Data.SqlClient" />
+          </connectionStrings>
+          "@ | Set-Content -Path "$env:PUBLISH_DIR\ConnectionStrings.config" -Encoding utf8
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.PUBLISH_DIR }}
